@@ -25,6 +25,13 @@ const Home = () => {
   const fetchTransactions = async (query: string, page: number) => {
     setLoading(true);
     try {
+      if (query.trim() === "") {
+        setTransactions([]);
+        setTotalPages(1);
+        setLoading(false);
+        return;
+      }
+
       let params: any = { page: page, page_size: 10, search: query };
 
       const response = await axios.get<ApiResponse>(
@@ -34,6 +41,9 @@ const Home = () => {
       setTransactions(response.data.transactions);
       setTotalPages(Math.ceil(response.data.total / 10)); // Assuming your API returns the total records
     } catch (error) {
+      setTransactions([]);
+      setTotalPages(1);
+      setLoading(false);
       if (axios.isAxiosError(error)) {
         console.error("Network error:", error.message);
       } else {
@@ -55,7 +65,7 @@ const Home = () => {
       <form onSubmit={handleSearch} className={styles.searchForm}>
         <input
           type="text"
-          placeholder="Search by date, transaction no, credit, debit, or detail"
+          placeholder="Search by date (2024-09-01), credit, debit, or detail"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className={styles.input}

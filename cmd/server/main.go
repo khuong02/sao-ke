@@ -26,7 +26,7 @@ func main() {
 		},
 	}
 
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017").SetMonitor(m) // replace with your MongoDB URI
+	clientOptions := options.Client().ApplyURI("mongodb://host.docker.internal:27017").SetMonitor(m) // replace with your MongoDB URI
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal("MongoDB connection error:", err)

@@ -15,7 +15,7 @@ func BuildFilter(search string) bson.D {
 		// Try to convert the search term to numeric values in case it matches `trans_no`, `credit`, or `debit`
 		credit, creditErr := strconv.ParseFloat(search, 64)
 		debit, debitErr := strconv.ParseFloat(search, 64)
-		date, dateErr := time.Parse("02/01/2006", search) // Format: dd/MM/yyyy
+		date, dateErr := time.Parse("2006-01-02", search) // Format: YYYY-MM-DD
 
 		// Create a slice of conditions for the $or filter
 		orConditions := bson.A{}
