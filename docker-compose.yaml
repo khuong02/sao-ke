@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"  # Exposes MongoDB on port 27017
+    volumes:
+      - mongo-data:/data/db                     # Persistent data storage
+  be:
+    image: sao-ke-be:latest
+    container_name: sao-ke-be
+    restart: always
+    ports:
+      - "8080:8080"
+  fe:
+    image: sao-ke-fe:latest
+    container_name: sao-ke-fe
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - be
+    stdin_open: true
+    tty: true
+
+volumes:
+  mongo-data:
