@@ -10,7 +10,7 @@ docker build -t sao-ke-migrate:latest . -f dockerfile.migrate
 # server
 docker build -t sao-ke-be:latest .
 # fe
-docker build -t sao-ke-fe:latest . -f ./fe/dockerfile
+cd ./fe && docker build -t sao-ke-fe:latest .
 ```
 
 ## Run migrate
